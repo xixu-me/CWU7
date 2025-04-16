@@ -23,7 +23,7 @@ CWU7 automates the process of reserving badminton courts at exactly the configur
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/CWU7.git
+   git clone https://github.com/xixu-me/CWU7.git
    cd CWU7
    ```
 
