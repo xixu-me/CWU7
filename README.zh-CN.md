@@ -23,7 +23,7 @@ CWU7 可以自动在配置的时间（默认 7:00 AM）准时预约羽毛球场�
 1. 克隆仓库：
 
    ```bash
-   git clone https://github.com/yourusername/CWU7.git
+   git clone https://github.com/xixu-me/CWU7.git
    cd CWU7
    ```
 
