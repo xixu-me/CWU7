@@ -26,6 +26,11 @@ logging.basicConfig(
 RESERVATION_HOUR = 7  # Target hour for reservation (24-hour format)
 RESERVATION_MINUTE = 0  # Target minute for reservation
 COORDINATES = {
+    "miniprogram_icon": (1093, 225),  # Position of the mini-program icon
+    "title_bar": (978, 26),  # Title bar position
+    "right_edge": (1919, 150),  # Screen right edge position
+    "reservation_button": (1557, 546),  # Reservation button position
+    "venue_button": (1260, 332),  # Main venue category selection
     "badminton_button": (1101, 223),  # Main badminton category selection
     "reserve_button": (1017, 355),  # Reserve action button
     "court_selection": (1401, 516),  # Specific court selection
@@ -75,6 +80,25 @@ def click_at(position_name):
     x, y = COORDINATES[position_name]
     logging.info(f"Clicking {position_name} at ({x}, {y})")
     pyautogui.click(x, y)
+
+
+def hold_and_drag(start_position_name, end_position_name):
+    """
+    Hold the mouse button down at the start position and drag to the end position.
+
+    Args:
+        start_position_name (str): Key name from COORDINATES for the start position
+        end_position_name (str): Key name from COORDINATES for the end position
+    """
+    start_x, start_y = COORDINATES[start_position_name]
+    end_x, end_y = COORDINATES[end_position_name]
+    logging.info(
+        f"Holding mouse at {start_position_name} ({start_x}, {start_y}) and dragging to {end_position_name} ({end_x}, {end_y})"
+    )
+    pyautogui.moveTo(start_x, start_y)
+    pyautogui.mouseDown()
+    pyautogui.moveTo(end_x, end_y, duration=0.3)  # duration for a smoother drag
+    pyautogui.mouseUp()
 
 
 def solve_captcha():
@@ -134,7 +158,18 @@ def main():
         pyautogui.FAILSAFE = False  # Disable failsafe to prevent interruptions
         wait_until_scheduled_time()
 
+        # Click on the mini-program icon to open the reservation interface and move it to the screen right edge
+        click_at("miniprogram_icon")
+        time.sleep(WAIT_TIMES["standard"])
+        hold_and_drag("title_bar", "right_edge")
+        time.sleep(WAIT_TIMES["standard"])
+
         # Navigate through reservation interface
+        click_at("reservation_button")
+        time.sleep(WAIT_TIMES["long"])
+        time.sleep(WAIT_TIMES["long"])
+        click_at("venue_button")
+        time.sleep(WAIT_TIMES["long"])
         click_at("badminton_button")
         time.sleep(WAIT_TIMES["standard"])
         click_at("reserve_button")
