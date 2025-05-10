@@ -41,8 +41,9 @@ COORDINATES = {
 CAPTCHA_CHECK_PIXEL = (1109, 987)  # Pixel to check for CAPTCHA presence
 CAPTCHA_CHECK_COLOR = (46, 49, 66)  # Expected color when CAPTCHA is visible
 WAIT_TIMES = {
-    "standard": 0.1,
-    "long": 0.2,
+    "short": 0.1,
+    "standard": 0.2,
+    "long": 0.3,
     "captcha": 0.05,
 }  # Wait durations in seconds
 
@@ -130,7 +131,7 @@ def input_captcha(text):
         text (str): CAPTCHA text to input
     """
     click_at("captcha_input")
-    time.sleep(WAIT_TIMES["standard"])
+    time.sleep(WAIT_TIMES["short"])
     pyautogui.hotkey("ctrl", "a")  # Select all existing text
     pyautogui.typewrite(text)
 
@@ -156,27 +157,25 @@ def main():
     """
     try:
         pyautogui.FAILSAFE = False  # Disable failsafe to prevent interruptions
-        wait_until_scheduled_time()
+        # wait_until_scheduled_time()
 
         # Click on the mini-program icon to open the reservation interface and move it to the screen right edge
         click_at("miniprogram_icon")
-        time.sleep(WAIT_TIMES["standard"])
+        time.sleep(WAIT_TIMES["short"])
         hold_and_drag("title_bar", "right_edge")
-        time.sleep(WAIT_TIMES["standard"])
+        time.sleep(WAIT_TIMES["short"])
 
         # Navigate through reservation interface
         click_at("reservation_button")
         time.sleep(WAIT_TIMES["long"])
-        time.sleep(WAIT_TIMES["long"])
         click_at("venue_button")
         time.sleep(WAIT_TIMES["long"])
-        time.sleep(WAIT_TIMES["long"])
         click_at("badminton_button")
-        time.sleep(WAIT_TIMES["standard"])
+        time.sleep(WAIT_TIMES["short"])
         click_at("reserve_button")
-        time.sleep(WAIT_TIMES["long"])
-        click_at("court_selection")
         time.sleep(WAIT_TIMES["standard"])
+        click_at("court_selection")
+        time.sleep(WAIT_TIMES["short"])
         click_at("confirm_button")
 
         # Handle CAPTCHA if presented
@@ -188,7 +187,7 @@ def main():
             input_captcha(captcha_text)
             time.sleep(WAIT_TIMES["captcha"])
             click_at("confirm_button")
-            time.sleep(WAIT_TIMES["standard"])
+            time.sleep(WAIT_TIMES["short"])
 
         # Report final status
         if captcha_attempts >= 10:
