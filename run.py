@@ -42,7 +42,6 @@ CAPTCHA_CHECK_PIXEL = (1109, 987)  # Pixel to check for CAPTCHA presence
 CAPTCHA_CHECK_COLOR = (46, 49, 66)  # Expected color when CAPTCHA is visible
 WAIT_TIMES = {
     "short": 0.1,
-    "standard": 0.2,
     "long": 0.3,
     "captcha": 0.05,
 }  # Wait durations in seconds
@@ -157,7 +156,7 @@ def main():
     """
     try:
         pyautogui.FAILSAFE = False  # Disable failsafe to prevent interruptions
-        # wait_until_scheduled_time()
+        wait_until_scheduled_time()
 
         # Click on the mini-program icon to open the reservation interface and move it to the screen right edge
         click_at("miniprogram_icon")
@@ -173,7 +172,7 @@ def main():
         click_at("badminton_button")
         time.sleep(WAIT_TIMES["short"])
         click_at("reserve_button")
-        time.sleep(WAIT_TIMES["standard"])
+        time.sleep(WAIT_TIMES["short"])
         click_at("court_selection")
         time.sleep(WAIT_TIMES["short"])
         click_at("confirm_button")
