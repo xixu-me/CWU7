@@ -41,8 +41,8 @@ COORDINATES = {
 CAPTCHA_CHECK_PIXEL = (1109, 987)  # Pixel to check for CAPTCHA presence
 CAPTCHA_CHECK_COLOR = (46, 49, 66)  # Expected color when CAPTCHA is visible
 WAIT_TIMES = {
-    "short": 0.1,
-    "long": 0.3,
+    "short": 0.2,
+    "long": 0.4,
     "captcha": 0.05,
 }  # Wait durations in seconds
 
