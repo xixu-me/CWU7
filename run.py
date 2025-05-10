@@ -170,6 +170,7 @@ def main():
         time.sleep(WAIT_TIMES["long"])
         click_at("venue_button")
         time.sleep(WAIT_TIMES["long"])
+        time.sleep(WAIT_TIMES["long"])
         click_at("badminton_button")
         time.sleep(WAIT_TIMES["standard"])
         click_at("reserve_button")
