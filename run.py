@@ -27,7 +27,7 @@ RESERVATION_HOUR = 7  # Target hour for reservation (24-hour format)
 RESERVATION_MINUTE = 0  # Target minute for reservation
 COORDINATES = {
     "miniprogram_icon": (1093, 225),  # Position of the mini-program icon
-    "title_bar": (978, 26),  # Title bar position
+    "title_bar": (973, 21),  # Title bar position
     "right_edge": (1919, 150),  # Screen right edge position
     "reservation_button": (1557, 546),  # Reservation button position
     "venue_button": (1260, 332),  # Main venue category selection
