@@ -45,29 +45,29 @@ PIXEL_CHECKS = {
     "miniprogram_loaded": {
         "position": (1505, 229),
         "color": (54, 61, 77),
-        "timeout": 5,
+        "timeout": 1,
     },
     "reservation_page_loaded": {
         "position": (1019, 351),
         "color": (255, 161, 18),
-        "timeout": 5,
+        "timeout": 1,
     },
     "venue_page_loaded": {
         "position": (1038, 133),
         "color": (255, 161, 18),
-        "timeout": 5,
+        "timeout": 1,
     },
     "court_page_loaded": {
         "position": (1192, 988),
         "color": (149, 152, 159),
-        "timeout": 3,
+        "timeout": 1,
     },
-    "court_selected": {"position": (1138, 993), "color": (46, 49, 66), "timeout": 3},
+    "court_selected": {"position": (1138, 993), "color": (46, 49, 66), "timeout": 1},
 }
 
 CAPTCHA_CHECK_PIXEL = (1109, 987)  # Pixel to check for CAPTCHA presence
 CAPTCHA_CHECK_COLOR = (46, 49, 66)  # Expected color when CAPTCHA is visible
-MAX_RETRY_ATTEMPTS = 5  # Maximum retry attempts
+MAX_RETRY_ATTEMPTS = 100  # Maximum retry attempts
 
 
 def wait_until_scheduled_time():
@@ -93,7 +93,7 @@ def wait_until_scheduled_time():
     logging.info("Starting reservation process")
 
 
-def wait_for_pixel_color(position, color, timeout=5, check_interval=0.01):
+def wait_for_pixel_color(position, color, timeout=1, check_interval=0.01):
     """
     Wait until the pixel at the given position changes to the expected color or timeout is reached.
 
