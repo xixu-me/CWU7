@@ -37,6 +37,7 @@ COORDINATES = {
     "confirm_button": (1439, 991),  # Final confirmation button
     "captcha_input": (1851, 570),  # CAPTCHA input field
     "captcha_region": (1628, 550, 1776, 592),  # Screen region containing CAPTCHA image
+    "close_button": (1886, 27),  # Close button for the miniprogram window
 }
 
 # Pixel check points and expected colors for each UI stage
@@ -66,6 +67,7 @@ PIXEL_CHECKS = {
 
 CAPTCHA_CHECK_PIXEL = (1109, 987)  # Pixel to check for CAPTCHA presence
 CAPTCHA_CHECK_COLOR = (46, 49, 66)  # Expected color when CAPTCHA is visible
+MAX_RETRY_ATTEMPTS = 5  # Maximum retry attempts
 
 
 def wait_until_scheduled_time():
@@ -206,6 +208,67 @@ def is_captcha_showing():
     return pixel_color == CAPTCHA_CHECK_COLOR
 
 
+def close_window_and_restart():
+    """
+    Close the current mini-program window and wait a short period
+    """
+    logging.info("Closing the mini-program window and preparing to restart")
+    click_at("close_button")
+
+
+def reservation_process():
+    """
+    Execute the complete reservation process
+    """
+    # Click on the mini-program icon to open the reservation interface
+    click_at("miniprogram_icon")
+
+    # Move window to the edge
+    hold_and_drag("title_bar", "right_edge")
+    if not wait_for_pixel_color(**PIXEL_CHECKS["miniprogram_loaded"]):
+        return False
+
+    # Navigate through reservation interface
+    click_at("reservation_button")
+    if not wait_for_pixel_color(**PIXEL_CHECKS["reservation_page_loaded"]):
+        return False
+
+    click_at("venue_button")
+    if not wait_for_pixel_color(**PIXEL_CHECKS["venue_page_loaded"]):
+        return False
+
+    click_at("badminton_button")
+    click_at("reserve_button")
+    if not wait_for_pixel_color(**PIXEL_CHECKS["court_page_loaded"]):
+        return False
+
+    click_at("court_selection")
+    if not wait_for_pixel_color(**PIXEL_CHECKS["court_selected"]):
+        return False
+
+    click_at("confirm_button")
+
+    # Handle CAPTCHA if presented
+    captcha_attempts = 0
+    while is_captcha_showing() and captcha_attempts < 10:
+        captcha_attempts += 1
+        logging.info(f"CAPTCHA attempt {captcha_attempts}")
+        captcha_text = solve_captcha()
+        input_captcha(captcha_text)
+        time.sleep(0.05)
+        click_at("confirm_button")
+        time.sleep(0.2)
+
+    if captcha_attempts >= 10:
+        logging.warning(
+            "CAPTCHA recognition failed more than 10 times, need to restart"
+        )
+        return False
+    else:
+        logging.info("Reservation process completed")
+        return True
+
+
 def main():
     """
     Main execution function that orchestrates the reservation process.
@@ -215,41 +278,30 @@ def main():
         pyautogui.FAILSAFE = False  # Disable failsafe to prevent interruptions
         wait_until_scheduled_time()
 
-        # Click on the mini-program icon to open the reservation interface
-        click_at("miniprogram_icon")
+        retry_count = 0
+        success = False
 
-        # Move window to the edge
-        hold_and_drag("title_bar", "right_edge")
-        wait_for_pixel_color(**PIXEL_CHECKS["miniprogram_loaded"])
+        while not success and retry_count < MAX_RETRY_ATTEMPTS:
+            try:
+                if retry_count > 0:
+                    logging.info(f"Retry reservation attempt {retry_count}")
+                success = reservation_process()
 
-        # Navigate through reservation interface
-        click_at("reservation_button")
-        wait_for_pixel_color(**PIXEL_CHECKS["reservation_page_loaded"])
-        click_at("venue_button")
-        wait_for_pixel_color(**PIXEL_CHECKS["venue_page_loaded"])
-        click_at("badminton_button")
-        click_at("reserve_button")
-        wait_for_pixel_color(**PIXEL_CHECKS["court_page_loaded"])
-        click_at("court_selection")
-        wait_for_pixel_color(**PIXEL_CHECKS["court_selected"])
-        click_at("confirm_button")
+                if not success:
+                    retry_count += 1
+                    close_window_and_restart()
+            except Exception as e:
+                logging.error(f"Error occurred during reservation process: {str(e)}")
+                retry_count += 1
+                close_window_and_restart()
 
-        # Handle CAPTCHA if presented
-        captcha_attempts = 0
-        while is_captcha_showing() and captcha_attempts < 10:
-            captcha_attempts += 1
-            logging.info(f"CAPTCHA attempt {captcha_attempts}")
-            captcha_text = solve_captcha()
-            input_captcha(captcha_text)
-            time.sleep(0.05)
-            click_at("confirm_button")
-            time.sleep(0.2)
-
-        # Report final status
-        if captcha_attempts >= 10:
-            logging.warning("Maximum CAPTCHA attempts reached")
+        if success:
+            logging.info("Reservation successfully completed!")
         else:
-            logging.info("Reservation process completed")
+            logging.error(
+                f"Failed to complete reservation after {MAX_RETRY_ATTEMPTS} attempts"
+            )
+
     except Exception as e:
         logging.error(f"An error occurred: {str(e)}")
 
