@@ -28,10 +28,17 @@ def track_mouse_position(refresh_rate=0.1):
         while True:
             # Get current cursor position
             x, y = pyautogui.position()
-            position_str = f"X: {x:4d} Y: {y:4d}"
+
+            # Get RGB color at cursor position
+            try:
+                r, g, b = pyautogui.pixel(x, y)
+                output = f"Position: ({x:4d},{y:4d}) | RGB: ({r:3d},{g:3d},{b:3d})"
+            except:
+                # Handle potential screenshot errors
+                output = f"Position: ({x:4d},{y:4d}) | RGB: (Failed to get color)"
 
             # Update display in-place without line break
-            print(f"\r{position_str}", end="", flush=True)
+            print(f"\r{output}", end="", flush=True)
 
             # Wait before next update
             time.sleep(refresh_rate)
