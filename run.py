@@ -153,7 +153,7 @@ def hold_and_drag(start_position_name, end_position_name):
     )
     pyautogui.moveTo(start_x, start_y)
     pyautogui.mouseDown()
-    pyautogui.moveTo(end_x, end_y, duration=0.25)  # duration for a smoother drag
+    pyautogui.moveTo(end_x, end_y, duration=0.2)  # duration for a smoother drag
     pyautogui.mouseUp()
 
 
