@@ -1,99 +1,134 @@
 # CWU7 - Can't Wake Up at 7am
 
-A Python automation tool for reserving badminton courts right when they become available at 7:00 AM.
-
-## Overview
-
-CWU7 automates the process of reserving badminton courts at exactly the configured time. If you hate waking up early to book courts when they first become available, this bot can help by:
-
-- Automatically navigating through the reservation website
-- Handling CAPTCHA challenges using OCR
-- Precisely timing the reservation attempt
-- Logging the entire process
+A Python automation script for reserving badminton courts at precisely 7:00 AM. This bot navigates through the reservation interface, handles CAPTCHA challenges, and logs the entire process.
 
 ## Features
 
-- **Precise Timing**: Automatically executes at exactly 7:00 AM (or your configured time)
-- **CAPTCHA Solving**: Uses OCR technology to automatically solve CAPTCHA challenges
-- **Position Tracking**: Includes a utility for determining UI element coordinates
-- **Detailed Logging**: Records the entire reservation process for troubleshooting
+- **Precise Timing**: Waits until exactly 7:00 AM to start the reservation process
+- **Automated Navigation**: Clicks through the reservation interface automatically
+- **CAPTCHA Solving**: Uses OCR to recognize and solve CAPTCHA challenges
+- **Retry Logic**: Automatically retries on failure with configurable attempts
+- **Comprehensive Logging**: Logs all actions and errors to file and console
+- **Mouse Tracking Utility**: Includes a helper tool for finding UI coordinates
+
+## Requirements
+
+- Python 3.6+
+- Windows operating system
+- Required Python packages:
+
+  ```
+  pyautogui
+  ddddocr
+  numpy
+  Pillow
+  ```
 
 ## Installation
 
-1. Clone the repository:
+1. Clone this repository:
 
    ```bash
    git clone https://github.com/xixu-me/CWU7.git
    cd CWU7
    ```
 
-2. Install dependencies:
+2. Install required dependencies:
 
    ```bash
-   pip install pyautogui pillow numpy ddddocr
+   pip install pyautogui ddddocr numpy Pillow
    ```
 
 ## Usage
 
+### Running the Reservation Bot
+
+1. Configure the reservation time and coordinates in `run.py` if needed
+2. Run the main script:
+
+   ```bash
+   python run.py
+   ```
+
+The bot will wait until 7:00 AM and then automatically attempt to reserve a badminton court.
+
 ### Mouse Position Tracker
 
-Before using the reservation bot, you need to determine the screen coordinates for various UI elements:
+Use the tracker utility to find coordinates for UI elements:
 
 ```bash
 python tracker.py
 ```
 
-Move your cursor to important UI elements and note their coordinates. Then update these in the run.py file.
-
-### Reservation Bot
-
-To run the reservation bot:
-
-```bash
-python run.py
-```
-
-By default, the bot will wait until 7:00 AM to begin the reservation process.
+This will display the current mouse position and pixel color in real-time. Press Ctrl+C to exit.
 
 ## Configuration
 
-Edit the following constants in run.py to customize the bot:
+### Time Settings
 
-- `RESERVATION_HOUR` and `RESERVATION_MINUTE`: Set the target time for reservation
-- `COORDINATES`: Adjust the screen coordinates for various UI elements
-- `WAIT_TIMES`: Modify the timing between actions if needed
+Modify these constants in `run.py` to change the reservation time:
 
 ```python
-# Example configuration
-RESERVATION_HOUR = 7  # Target hour (24-hour format)
+RESERVATION_HOUR = 7    # Target hour (24-hour format)
 RESERVATION_MINUTE = 0  # Target minute
-COORDINATES = {
-    "badminton_button": (1101, 223),
-    # ...other coordinates
-}
+```
+
+### Coordinates
+
+The `COORDINATES` dictionary in `run.py` contains all click positions. Use `tracker.py` to find the correct coordinates for your screen resolution and interface.
+
+### Retry Settings
+
+```python
+MAX_RETRY_ATTEMPTS = 100  # Maximum retry attempts
 ```
 
 ## How It Works
 
-1. The script waits until the configured time (default 7:00 AM)
-2. It performs a sequence of clicks to navigate the reservation interface
-3. If a CAPTCHA appears, it:
-   - Captures the CAPTCHA image from the screen
-   - Uses OCR to recognize the text
-   - Inputs the recognized text
-   - Submits the form
-4. The process is logged to both console and file (`reservation.log`)
+1. **Wait for Target Time**: The script waits until the configured reservation time
+2. **Open Mini-Program**: Clicks on the reservation interface
+3. **Navigate Interface**: Automatically clicks through the reservation steps
+4. **Handle CAPTCHA**: Uses OCR to solve any CAPTCHA challenges
+5. **Retry on Failure**: Automatically retries if any step fails
+6. **Log Results**: Records all actions and results
+
+## File Structure
+
+- `run.py` - Main reservation bot script
+- `tracker.py` - Mouse position tracking utility
+- `LICENSE` - GNU GPL v3 license
+- `.gitignore` - Git ignore file
+- `reservation.log` - Generated log file (created during execution)
 
 ## Troubleshooting
 
-- If the bot fails to click on the right locations, use tracker.py to verify and update coordinates
-- Check `reservation.log` for detailed error information
-- Make sure your screen resolution matches the one used for configuring coordinates
+### Common Issues
 
-## Disclaimer
+1. **Wrong Coordinates**: Use `tracker.py` to find the correct click positions
+2. **CAPTCHA Failures**: The OCR may need adjustment for different CAPTCHA styles
+3. **Timing Issues**: Adjust the `check_interval` in pixel checking functions
+4. **Screen Resolution**: Coordinates may need adjustment for different screen sizes
 
-This tool is for educational purposes only. Using automated bots might be against the terms of service of some reservation systems. Use at your own risk.
+### Logs
+
+Check `reservation.log` for detailed execution logs and error messages.
+
+## Legal Notice
+
+This software is provided for educational purposes only. Users are responsible for compliance with the terms of service of the reservation system. The authors are not responsible for any misuse or violations.
 
 ## License
 
-Licensed under the [GPL-3.0](LICENSE) license.  
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## Disclaimer
+
+This is an automation tool designed to help with legitimate reservations. Please use responsibly and in accordance with the reservation system's terms of service.
