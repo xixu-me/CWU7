@@ -45,7 +45,7 @@ PIXEL_CHECKS = {
     "miniprogram_loaded": {
         "position": (1505, 229),
         "color": (54, 61, 77),
-        "timeout": 1,
+        "timeout": 1.5,
     },
     "reservation_page_loaded": {
         "position": (1019, 351),
