@@ -28,7 +28,6 @@ def track_mouse_position(refresh_rate=0.1):
         while True:
             # Get current cursor position
             x, y = pyautogui.position()
-
             # Get RGB color at cursor position
             r, g, b = pyautogui.pixel(x, y)
 

@@ -19,7 +19,7 @@ from PIL import Image
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[logging.FileHandler("reservation.log"), logging.StreamHandler()],
+    handlers=[logging.FileHandler("court_reservation.log"), logging.StreamHandler()],
 )
 
 # Configuration constants

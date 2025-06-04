@@ -1,134 +1,125 @@
 # CWU7 - Can't Wake Up at 7am
 
-A Python automation script for reserving badminton courts at precisely 7:00 AM. This bot navigates through the reservation interface, handles CAPTCHA challenges, and logs the entire process.
+A Python automation toolkit for badminton court reservations and development assistance. The main script automates court reservations at precisely 7:00 AM, while additional utilities help with UI coordination and Copilot session management.
 
-## Features
+## 🚀 Features
 
-- **Precise Timing**: Waits until exactly 7:00 AM to start the reservation process
-- **Automated Navigation**: Clicks through the reservation interface automatically
-- **CAPTCHA Solving**: Uses OCR to recognize and solve CAPTCHA challenges
-- **Retry Logic**: Automatically retries on failure with configurable attempts
-- **Comprehensive Logging**: Logs all actions and errors to file and console
-- **Mouse Tracking Utility**: Includes a helper tool for finding UI coordinates
+### Core Reservation Bot
 
-## Requirements
+- **⏰ Precise Timing**: Waits until exactly 7:00 AM to start the reservation process
+- **🤖 Automated Navigation**: Clicks through the reservation interface automatically
+- **🔍 CAPTCHA Solving**: Uses OCR technology to recognize and solve CAPTCHA challenges
+- **🔄 Retry Logic**: Automatically retries on failure with configurable attempts
+- **📝 Logging**: Logs all actions and errors to file and console
+
+### Utilities
+
+- **🎯 Mouse Tracking**: Helper tool for finding UI coordinates
+- **💬 Copilot Resumption**: Tool to resume Copilot sessions by monitoring screen color and automating input
+
+## 📋 Requirements
 
 - Python 3.6+
-- Windows operating system
-- Required Python packages:
+- Windows OS
+- Python packages:
+  - pyautogui
+  - ddddocr
+  - numpy
+  - Pillow
 
-  ```
-  pyautogui
-  ddddocr
-  numpy
-  Pillow
-  ```
+## 🛠️ Installation
 
-## Installation
+```powershell
+# Clone the repository
+git clone https://github.com/xixu-me/CWU7.git
+cd CWU7
 
-1. Clone this repository:
+# Install dependencies
+pip install pyautogui ddddocr numpy Pillow
+```
 
-   ```bash
-   git clone https://github.com/xixu-me/CWU7.git
-   cd CWU7
+## 📖 Usage
+
+### Reservation Bot
+
+1. Edit `court_reservation.py` to set reservation time and coordinates if needed.
+2. Run:
+
+   ```powershell
+   python court_reservation.py
    ```
-
-2. Install required dependencies:
-
-   ```bash
-   pip install pyautogui ddddocr numpy Pillow
-   ```
-
-## Usage
-
-### Running the Reservation Bot
-
-1. Configure the reservation time and coordinates in `run.py` if needed
-2. Run the main script:
-
-   ```bash
-   python run.py
-   ```
-
-The bot will wait until 7:00 AM and then automatically attempt to reserve a badminton court.
 
 ### Mouse Position Tracker
 
-Use the tracker utility to find coordinates for UI elements:
+Find UI coordinates:
 
-```bash
+```powershell
 python tracker.py
 ```
 
-This will display the current mouse position and pixel color in real-time. Press Ctrl+C to exit.
+Shows mouse position and pixel color in real-time. Press Ctrl+C to exit.
 
-## Configuration
+### Copilot Resumption Tool
 
-### Time Settings
+Resume Copilot sessions automatically:
 
-Modify these constants in `run.py` to change the reservation time:
-
-```python
-RESERVATION_HOUR = 7    # Target hour (24-hour format)
-RESERVATION_MINUTE = 0  # Target minute
+```powershell
+python copilot_resumption.py
 ```
 
-### Coordinates
+Monitors a screen region for color changes and inputs text to help resume Copilot sessions when interaction is needed.
 
-The `COORDINATES` dictionary in `run.py` contains all click positions. Use `tracker.py` to find the correct coordinates for your screen resolution and interface.
+## ⚙️ Configuration
 
-### Retry Settings
+- **Time**: Edit `RESERVATION_HOUR` and `RESERVATION_MINUTE` in `court_reservation.py`.
+- **Coordinates**: Update the `COORDINATES` dictionary in `court_reservation.py` using `tracker.py`.
+- **Retry**: Set `MAX_RETRY_ATTEMPTS` in `court_reservation.py`.
 
-```python
-MAX_RETRY_ATTEMPTS = 100  # Maximum retry attempts
-```
+## 🔧 How It Works
 
-## How It Works
+1. Waits for the target time
+2. Opens the reservation interface
+3. Navigates steps automatically
+4. Handles CAPTCHA with OCR
+5. Retries on failure
+6. Logs all actions and results
 
-1. **Wait for Target Time**: The script waits until the configured reservation time
-2. **Open Mini-Program**: Clicks on the reservation interface
-3. **Navigate Interface**: Automatically clicks through the reservation steps
-4. **Handle CAPTCHA**: Uses OCR to solve any CAPTCHA challenges
-5. **Retry on Failure**: Automatically retries if any step fails
-6. **Log Results**: Records all actions and results
+## 📁 File Structure
 
-## File Structure
-
-- `run.py` - Main reservation bot script
-- `tracker.py` - Mouse position tracking utility
-- `LICENSE` - GNU GPL v3 license
+- `court_reservation.py` - Main reservation bot
+- `tracker.py` - Mouse position tracker
+- `copilot_resumption.py` - Copilot session resumption tool
+- `captcha.png` - Sample CAPTCHA image
+- `LICENSE` - License
 - `.gitignore` - Git ignore file
-- `reservation.log` - Generated log file (created during execution)
+- `reservation.log` - Reservation log (created at runtime)
+- `copilot_resumption.log` - Copilot tool log (created at runtime)
 
-## Troubleshooting
+## 🔧 Troubleshooting
 
-### Common Issues
+- **Wrong Coordinates**: Use `tracker.py` to find correct positions
+- **CAPTCHA Failures**: OCR may need adjustment for different styles
+- **Timing Issues**: Adjust `check_interval` in code
+- **Screen Resolution**: Update coordinates for your display
 
-1. **Wrong Coordinates**: Use `tracker.py` to find the correct click positions
-2. **CAPTCHA Failures**: The OCR may need adjustment for different CAPTCHA styles
-3. **Timing Issues**: Adjust the `check_interval` in pixel checking functions
-4. **Screen Resolution**: Coordinates may need adjustment for different screen sizes
+Logs: See `reservation.log` and `copilot_resumption.log` for details.
 
-### Logs
+## ⚖️ Legal Notice
 
-Check `reservation.log` for detailed execution logs and error messages.
+This software is for educational purposes only. Users are responsible for compliance with the reservation system's terms. The authors are not responsible for misuse.
 
-## Legal Notice
+## 📄 License
 
-This software is provided for educational purposes only. Users are responsible for compliance with the terms of service of the reservation system. The authors are not responsible for any misuse or violations.
+GNU General Public License v3.0 - see [LICENSE](LICENSE).
 
-## License
-
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
-
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch
 3. Commit your changes
-4. Push to the branch
+4. Push to your branch
 5. Create a Pull Request
 
-## Disclaimer
+## ⚠️ Disclaimer
 
-This is an automation tool designed to help with legitimate reservations. Please use responsibly and in accordance with the reservation system's terms of service.
+This tool is for legitimate reservations only. Use responsibly and follow the reservation system's terms of service.
