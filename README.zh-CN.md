@@ -6,7 +6,7 @@
 
 CWU7 由多个独立工具组成，每个工具都有特定的自动化用途：
 
-### 🏸 羽毛球场预约工具 (`tools/court_reservation.py`)
+### 🏸 羽毛球场预约工具 ([`court_reservation.py`](tools/court_reservation.py))
 
 具有智能计时和错误处理的自动化羽毛球场预约系统：
 
@@ -16,7 +16,7 @@ CWU7 由多个独立工具组成，每个工具都有特定的自动化用途：
 - **🔄 重试机制**：失败时自动重试，可配置重试次数
 - **📝 完整日志**：将所有操作和错误记录到文件和控制台
 
-### 🎯 鼠标位置跟踪器 (`mouse_tracker.py`)
+### 🎯 鼠标位置跟踪器 ([`mouse_tracker.py`](tools/mouse_tracker.py))
 
 用于 UI 自动化坐标发现的开发工具：
 
@@ -25,7 +25,7 @@ CWU7 由多个独立工具组成，每个工具都有特定的自动化用途：
 - **⚡ 低延迟**：可配置刷新率以获得最佳性能
 - **🎨 颜色检测**：显示 RGB 值以进行精确的基于颜色的自动化
 
-### 💬 Copilot 会话恢复工具 (`tools/copilot_resumption.py`)
+### 💬 Copilot 会话恢复工具 ([`copilot_resumption.py`](tools/copilot_resumption.py))
 
 用于自动化开发辅助的智能会话管理工具：
 
@@ -46,7 +46,7 @@ CWU7 由多个独立工具组成，每个工具都有特定的自动化用途：
 
 ## 安装说明
 
-```powershell
+```shell
 # 克隆仓库
 git clone https://github.com/xixu-me/CWU7.git
 cd CWU7
@@ -63,10 +63,10 @@ CWU7 工具包中的每个工具都可以独立使用。选择适合您当前自
 
 在精确时间自动化羽毛球场预约：
 
-1. 如需要，在 `tools/court_reservation.py` 中配置预约设置
+1. 如需要，在 `court_reservation.py` 中配置预约设置
 2. 运行工具：
 
-   ```powershell
+   ```shell
    python tools/court_reservation.py
    ```
 
@@ -76,7 +76,7 @@ CWU7 工具包中的每个工具都可以独立使用。选择适合您当前自
 
 为自动化脚本发现 UI 坐标：
 
-```powershell
+```shell
 python tools/mouse_tracker.py
 ```
 
@@ -86,7 +86,7 @@ python tools/mouse_tracker.py
 
 自动维护活跃的 Copilot 会话：
 
-```powershell
+```shell
 python tools/copilot_resumption.py
 ```
 
@@ -98,7 +98,7 @@ python tools/copilot_resumption.py
 
 ### 羽毛球场预约工具
 
-- **时间设置**：在 `tools/court_reservation.py` 中修改 `RESERVATION_HOUR` 和 `RESERVATION_MINUTE`
+- **时间设置**：在 `court_reservation.py` 中修改 `RESERVATION_HOUR` 和 `RESERVATION_MINUTE`
 - **UI 坐标**：使用跟踪器工具找到的坐标更新 `COORDINATES` 字典
 - **重试设置**：配置 `MAX_RETRY_ATTEMPTS` 进行错误处理
 

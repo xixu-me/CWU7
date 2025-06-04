@@ -6,7 +6,7 @@ A modular Python automation toolkit featuring multiple independent tools for var
 
 CWU7 consists of multiple standalone tools, each serving a specific automation purpose:
 
-### 🏸 Court Reservation Tool (`tools/court_reservation.py`)
+### 🏸 Court Reservation Tool ([`court_reservation.py`](tools/court_reservation.py))
 
 An automated badminton court reservation system with intelligent timing and error handling:
 
@@ -16,7 +16,7 @@ An automated badminton court reservation system with intelligent timing and erro
 - **🔄 Retry Logic**: Automatically retries on failure with configurable attempts
 - **📝 Comprehensive Logging**: Logs all actions and errors to file and console
 
-### 🎯 Mouse Position Tracker (`mouse_tracker.py`)
+### 🎯 Mouse Position Tracker ([`mouse_tracker.py`](tools/mouse_tracker.py))
 
 A development utility for UI automation coordinate discovery:
 
@@ -25,7 +25,7 @@ A development utility for UI automation coordinate discovery:
 - **⚡ Low Latency**: Configurable refresh rate for optimal performance
 - **🎨 Color Detection**: Shows RGB values for precise color-based automation
 
-### 💬 Copilot Resumption Tool (`tools/copilot_resumption.py`)
+### 💬 Copilot Resumption Tool ([`copilot_resumption.py`](tools/copilot_resumption.py))
 
 An intelligent session management tool for automated development assistance:
 
@@ -46,7 +46,7 @@ An intelligent session management tool for automated development assistance:
 
 ## 🛠️ Installation
 
-```powershell
+```shell
 # Clone the repository
 git clone https://github.com/xixu-me/CWU7.git
 cd CWU7
@@ -63,10 +63,10 @@ Each tool in the CWU7 toolkit can be used independently. Choose the tool that fi
 
 Automate badminton court reservations at precise timing:
 
-1. Configure reservation settings in `tools/court_reservation.py` if needed
+1. Configure reservation settings in `court_reservation.py` if needed
 2. Run the tool:
 
-   ```powershell
+   ```shell
    python tools/court_reservation.py
    ```
 
@@ -76,7 +76,7 @@ The tool will wait until the configured time and automatically handle the entire
 
 Discover UI coordinates for automation scripts:
 
-```powershell
+```shell
 python tools/mouse_tracker.py
 ```
 
@@ -86,7 +86,7 @@ The tracker displays real-time mouse position and pixel color information. Press
 
 Automatically maintain active Copilot sessions:
 
-```powershell
+```shell
 python tools/copilot_resumption.py
 ```
 
@@ -98,7 +98,7 @@ Each tool has its own configuration options. Refer to the specific tool's docume
 
 ### Court Reservation Tool
 
-- **Timing**: Edit `RESERVATION_HOUR` and `RESERVATION_MINUTE` in `tools/court_reservation.py`
+- **Timing**: Edit `RESERVATION_HOUR` and `RESERVATION_MINUTE` in `court_reservation.py`
 - **UI Coordinates**: Update the `COORDINATES` dictionary using coordinates found with the tracker tool
 - **Retry Settings**: Configure `MAX_RETRY_ATTEMPTS` for error handling
 
