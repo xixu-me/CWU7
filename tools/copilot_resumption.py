@@ -39,7 +39,8 @@ def monitor_color_in_region(
         top (int): Top coordinate of the monitoring region
         right (int): Right coordinate of the monitoring region
         bottom (int): Bottom coordinate of the monitoring region
-        target_color (tuple): Target RGB color values (R, G, B)        text_box_x (int): X coordinate of the text input box
+        target_color (tuple): Target RGB color values (R, G, B)
+        text_box_x (int): X coordinate of the text input box
         text_box_y (int): Y coordinate of the text input box
         tolerance (int): Color tolerance value for matching
     """
